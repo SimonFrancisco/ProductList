@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ProductList</string>
+    <string name="at_warehouse">На складе</string>
+    <string name="date_added">Дата добавления</string>
 </resources>
