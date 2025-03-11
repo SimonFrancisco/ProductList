@@ -7,5 +7,11 @@
     <string name="DeleteProductAlertText">Вы действительно хотите удалить выбранный товар?</string>
     <string name="YesAlertDialog">Да</string>
     <string name="NoAlertDialog">Нет</string>
-    <string name="delete_alert_dialog_contentDescription">Delete alert dialog</string>
+    <string name="delete_alert_dialog_contentDescription">Delete product alert dialog</string>
+    <string name="edit_product_alert_dialog_contentDescription">Edit product alert dialog</string>
+    <string name="amount_of_product">Количество товара</string>
+    <string name="add_circle_description">Increase amount of product by 1</string>
+    <string name="minus_circle_description">Decrease amount of product by 1</string>
+    <string name="AcceptEdit">Принять</string>
+    <string name="DenyEdit">Отмена</string>
 </resources>

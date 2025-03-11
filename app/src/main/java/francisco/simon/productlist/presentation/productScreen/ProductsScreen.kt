@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -109,22 +110,12 @@ fun ProductItems(
                 }
             )
         }) { paddingValues ->
-        val openAlertDialog = remember { mutableStateOf(false) }
+        val openDeleteAlertDialog = remember { mutableStateOf(false) }
         val currentProduct: MutableState<Product?> = remember { mutableStateOf(null) }
-        when {
-            openAlertDialog.value -> {
-                DeleteAlertDialog(
-                    onDismissRequest = { openAlertDialog.value = false },
-                    onConfirmation = {
-                        openAlertDialog.value = false
-                        val newCurrentProduct = currentProduct.value
-                        if (newCurrentProduct != null) {
-                            viewModel.deleteProduct(newCurrentProduct)
-                        }
-                    }
-                )
-            }
-        }
+        AlertDialogDelete(openDeleteAlertDialog, currentProduct, viewModel)
+        val openEditAlertDialog = remember { mutableStateOf(false) }
+        AlertDialogEdit(openEditAlertDialog, currentProduct, viewModel)
+
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues),
@@ -141,10 +132,11 @@ fun ProductItems(
                 ProductCard(
                     product = product,
                     onEditClickListener = {
-
+                        openEditAlertDialog.value = true
+                        currentProduct.value = product
                     },
                     onDeleteClickListener = {
-                        openAlertDialog.value = true
+                        openDeleteAlertDialog.value = true
                         currentProduct.value = product
                     }
                 )
@@ -152,5 +144,59 @@ fun ProductItems(
 
         }
 
+    }
+}
+
+@Composable
+private fun AlertDialogEdit(
+    openEditAlertDialog: MutableState<Boolean>,
+    currentProduct: MutableState<Product?>,
+    viewModel: ProductScreenViewModel
+) {
+    when {
+        openEditAlertDialog.value -> {
+            val newCurrentProduct = currentProduct.value
+            val amountOfProduct = remember { mutableIntStateOf(0) }
+            if (newCurrentProduct != null) {
+                amountOfProduct.intValue = newCurrentProduct.amount
+            }
+            EditAlertDialog(
+                onDismissRequest = {
+                    openEditAlertDialog.value = false
+                },
+                onConfirmation = {
+                    openEditAlertDialog.value = false
+                    if (newCurrentProduct != null) {
+                        viewModel.editProduct(newCurrentProduct.copy(amount = amountOfProduct.intValue))
+                    }
+                },
+                onAmountChange = { newAmount ->
+                    amountOfProduct.intValue = newAmount
+                },
+                amount = amountOfProduct
+                )
+        }
+    }
+}
+
+@Composable
+private fun AlertDialogDelete(
+    openAlertDialog: MutableState<Boolean>,
+    currentProduct: MutableState<Product?>,
+    viewModel: ProductScreenViewModel
+) {
+    when {
+        openAlertDialog.value -> {
+            DeleteAlertDialog(
+                onDismissRequest = { openAlertDialog.value = false },
+                onConfirmation = {
+                    openAlertDialog.value = false
+                    val newCurrentProduct = currentProduct.value
+                    if (newCurrentProduct != null) {
+                        viewModel.deleteProduct(newCurrentProduct)
+                    }
+                }
+            )
+        }
     }
 }

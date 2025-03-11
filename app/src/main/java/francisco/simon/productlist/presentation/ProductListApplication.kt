@@ -1,7 +1,6 @@
 package francisco.simon.productlist.presentation
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import francisco.simon.productlist.di.ApplicationComponent
@@ -15,6 +14,5 @@ class ProductListApplication : Application() {
 
 @Composable
 fun getApplicationComponent(): ApplicationComponent {
-    Log.d("getApplicationComponent", "RECOMPOSITION")
     return (LocalContext.current.applicationContext as ProductListApplication).component
 }

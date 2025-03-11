@@ -1,9 +1,7 @@
 package francisco.simon.productlist.presentation.productScreen
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -17,6 +15,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -138,7 +137,7 @@ private fun ProductHeader(
             modifier = Modifier
                 .weight(1f)
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row {
             ClickableIcon(
                 onItemClickListener = {
                     onEditClickListener()
@@ -169,10 +168,9 @@ fun ClickableIcon(
     contentDescription: String
 ) {
 
-    Box(modifier = modifier.clickable {
-        onItemClickListener()
-    })
-    {
+    IconButton(
+        onClick = onItemClickListener
+    ) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
@@ -180,34 +178,8 @@ fun ClickableIcon(
         )
     }
 
+
 }
 
-
-//@PreviewLightDark
-//@Composable
-//private fun ProductHeaderReview() {
-//    ProductListTheme {
-//        ProductCard(
-//            product = fakeProduct,
-//            onDeleteClickListener = {
-//
-//            },
-//            onEditClickListener = {
-//
-//            }
-//        )
-//    }
-//
-//}
-//
-//private const val fakeTime = 1633132800000L
-//
-//internal val fakeProduct = Product(
-//    id = 1,
-//    name = "iPhone 13",
-//    time = "11.03.2025",
-//    tags = listOf("Simon", "Chisenga", "Ernest", "David", "Osman"),
-//    amount = 15
-//)
 
 
