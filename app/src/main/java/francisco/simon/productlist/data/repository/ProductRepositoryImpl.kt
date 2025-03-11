@@ -14,9 +14,10 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
 
     override val products: Flow<List<Product>>
-        get() = productListDao.getProductList().map {
-            it.toEntities()
-        }
+        get() = productListDao.getProductList()
+            .map {
+                it.toEntities()
+            }
 
     override suspend fun deleteProduct(product: Product) {
         productListDao.deleteProduct(product.toDbModel())

@@ -15,7 +15,7 @@ abstract class ProductListDatabase : RoomDatabase() {
     abstract fun productListDao(): ProductListDao
 
     companion object {
-        private const val DB_NAME = "ProductListDatabase"
+        private const val DB_NAME = "ProductListDatabase."
         private var INSTANCE: ProductListDatabase? = null
         private val LOCK = Any()
 

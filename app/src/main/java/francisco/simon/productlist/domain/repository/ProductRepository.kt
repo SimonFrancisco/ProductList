@@ -13,5 +13,4 @@ interface ProductRepository {
 
     fun searchProducts(query: String): Flow<List<Product>>
 
-
 }

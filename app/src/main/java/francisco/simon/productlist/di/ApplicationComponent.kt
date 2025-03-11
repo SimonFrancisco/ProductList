@@ -9,7 +9,7 @@ import francisco.simon.productlist.presentation.ViewModelFactory
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun getViewModelFactory():ViewModelFactory
+    fun getViewModelFactory(): ViewModelFactory
 
     @Component.Factory
     interface Factory {

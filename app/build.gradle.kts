@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -53,6 +54,8 @@ dependencies {
 
     implementation(libs.dagger2)
     implementation(libs.room.core)
+
+    implementation(libs.json.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,7 +1,9 @@
 package francisco.simon.productlist.presentation.productScreen
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -15,7 +17,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import francisco.simon.productlist.R
 import francisco.simon.productlist.domain.entity.Product
 import francisco.simon.productlist.ui.theme.DarkRed
-import francisco.simon.productlist.ui.theme.ProductListTheme
 import francisco.simon.productlist.ui.theme.Purple40
 
 
@@ -39,8 +38,8 @@ import francisco.simon.productlist.ui.theme.Purple40
 fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
-    onDeleteClickListener: (Product) -> Unit,
-    onEditClickListener: (Product) -> Unit
+    onDeleteClickListener: () -> Unit,
+    onEditClickListener: () -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -125,8 +124,8 @@ private fun ProductTags(product: Product) {
 @Composable
 private fun ProductHeader(
     product: Product,
-    onDeleteClickListener: (Product) -> Unit,
-    onEditClickListener: (Product) -> Unit
+    onDeleteClickListener: () -> Unit,
+    onEditClickListener: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceAround,
@@ -135,14 +134,14 @@ private fun ProductHeader(
         Text(
             text = product.name,
             fontWeight = FontWeight.Medium,
-            fontSize = 24.sp,
+            fontSize = 20.sp,
             modifier = Modifier
                 .weight(1f)
         )
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ClickableIcon(
                 onItemClickListener = {
-                    onDeleteClickListener(product)
+                    onEditClickListener()
                 },
                 tint = Purple40,
                 imageVector = Icons.Filled.Edit,
@@ -150,7 +149,7 @@ private fun ProductHeader(
             )
             ClickableIcon(
                 onItemClickListener = {
-                    onEditClickListener(product)
+                    onDeleteClickListener()
                 },
                 tint = DarkRed,
                 imageVector = Icons.Filled.Delete,
@@ -170,9 +169,10 @@ fun ClickableIcon(
     contentDescription: String
 ) {
 
-    IconButton(onClick = {
+    Box(modifier = modifier.clickable {
         onItemClickListener()
-    }) {
+    })
+    {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
@@ -183,31 +183,31 @@ fun ClickableIcon(
 }
 
 
-@PreviewLightDark
-@Composable
-private fun ProductHeaderReview() {
-    ProductListTheme {
-        ProductCard(
-            product = fakeProduct,
-            onDeleteClickListener = {
-
-            },
-            onEditClickListener = {
-
-            }
-        )
-    }
-
-}
-
-private const val fakeTime = 1633132800000L
-
-internal val fakeProduct = Product(
-    id = 1,
-    name = "iPhone 13",
-    time = "11.03.2025",
-    tags = listOf("Simon", "Chisenga", "Ernest", "David", "Osman"),
-    amount = 15
-)
+//@PreviewLightDark
+//@Composable
+//private fun ProductHeaderReview() {
+//    ProductListTheme {
+//        ProductCard(
+//            product = fakeProduct,
+//            onDeleteClickListener = {
+//
+//            },
+//            onEditClickListener = {
+//
+//            }
+//        )
+//    }
+//
+//}
+//
+//private const val fakeTime = 1633132800000L
+//
+//internal val fakeProduct = Product(
+//    id = 1,
+//    name = "iPhone 13",
+//    time = "11.03.2025",
+//    tags = listOf("Simon", "Chisenga", "Ernest", "David", "Osman"),
+//    amount = 15
+//)
 
 

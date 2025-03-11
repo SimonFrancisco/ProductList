@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProductListDao {
 
-    @Query("SELECT * FROM product_list ORDER BY id ASC")
+    @Query("SELECT * FROM item ORDER BY id ASC")
     fun getProductList(): Flow<List<ProductDbModel>>
 
-    @Query("SELECT * FROM product_list WHERE name LIKE:query ORDER BY name ASC")
+    @Query("SELECT * FROM item WHERE name LIKE:query ORDER BY name ASC")
     fun searchProduct(query: String): Flow<List<ProductDbModel>>
 
     @Delete

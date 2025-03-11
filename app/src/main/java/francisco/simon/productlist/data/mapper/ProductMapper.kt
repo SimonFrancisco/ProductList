@@ -10,7 +10,7 @@ fun Product.toDbModel(): ProductDbModel {
     return ProductDbModel(
         id = id,
         name = name,
-        time = time.toLong(),
+        time = time.mapDateToLong(),
         tags = tags,
         amount = amount
     )
@@ -35,4 +35,9 @@ private fun Long.mapTimeStampToDate(): String {
     return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
         date
     )
+}
+
+private fun String.mapDateToLong(): Long {
+    return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        .parse(this)?.time ?: 0L
 }

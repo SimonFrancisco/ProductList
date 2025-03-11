@@ -2,34 +2,31 @@ package francisco.simon.productlist
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import francisco.simon.productlist.presentation.productScreen.ProductCard
-import francisco.simon.productlist.presentation.productScreen.fakeProduct
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.graphics.toArgb
+import francisco.simon.productlist.presentation.productScreen.ProductScreen
+import francisco.simon.productlist.ui.theme.LightSteelBlue
 import francisco.simon.productlist.ui.theme.ProductListTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(
+            navigationBarStyle = SystemBarStyle.light(
+                LightSteelBlue.toArgb(),
+                LightSteelBlue.toArgb()
+            ),
+            statusBarStyle = SystemBarStyle.light(
+                LightSteelBlue.toArgb(),
+                LightSteelBlue.toArgb()
+            )
+        )
         setContent {
             ProductListTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(),
-                containerColor = Color.LightGray) { innerPadding ->
-                    ProductCard(
-                        modifier = Modifier.padding(innerPadding),
-                        product = fakeProduct,
-                        onDeleteClickListener = {
-
-                        },
-                        onEditClickListener = {
-
-                        }
-                    )
-                }
+                ProductScreen()
             }
         }
     }
