@@ -1,6 +1,5 @@
 package francisco.simon.productlist.presentation.productScreen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,8 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -75,7 +77,6 @@ fun ProductScreenContent(
                 products = currentState.products,
                 viewModel = viewModel
             )
-            Log.d("ProductListScreenState.Products", currentState.products.toString())
         }
     }
 
@@ -108,6 +109,22 @@ fun ProductItems(
                 }
             )
         }) { paddingValues ->
+        val openAlertDialog = remember { mutableStateOf(false) }
+        val currentProduct: MutableState<Product?> = remember { mutableStateOf(null) }
+        when {
+            openAlertDialog.value -> {
+                DeleteAlertDialog(
+                    onDismissRequest = { openAlertDialog.value = false },
+                    onConfirmation = {
+                        openAlertDialog.value = false
+                        val newCurrentProduct = currentProduct.value
+                        if (newCurrentProduct != null) {
+                            viewModel.deleteProduct(newCurrentProduct)
+                        }
+                    }
+                )
+            }
+        }
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues),
@@ -119,16 +136,20 @@ fun ProductItems(
             ),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+
             items(products, key = { it.id }) { product ->
                 ProductCard(
                     product = product,
-                    onEditClickListener = { },
+                    onEditClickListener = {
+
+                    },
                     onDeleteClickListener = {
-                        viewModel.deleteProduct(product)
+                        openAlertDialog.value = true
+                        currentProduct.value = product
                     }
                 )
-
             }
+
         }
 
     }

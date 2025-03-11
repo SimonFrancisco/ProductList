@@ -7,7 +7,6 @@ import francisco.simon.productlist.domain.usecases.DeleteProductUseCase
 import francisco.simon.productlist.domain.usecases.EditProductUseCase
 import francisco.simon.productlist.domain.usecases.GetProductsUseCase
 import francisco.simon.productlist.domain.usecases.SearchProductsUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -22,9 +21,10 @@ class ProductScreenViewModel @Inject constructor(
 
     val screenState = getProductsUseCase()
         .map {
-            delay(3_000)
-            ProductListScreenState.Products(it) as ProductListScreenState }
+            ProductListScreenState.Products(it) as ProductListScreenState
+        }
         .onStart { emit(ProductListScreenState.Loading) }
+
 
     fun editProduct(product: Product) {
         viewModelScope.launch {
