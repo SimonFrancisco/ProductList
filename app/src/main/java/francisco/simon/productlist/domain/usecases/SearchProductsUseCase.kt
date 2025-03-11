@@ -3,8 +3,9 @@ package francisco.simon.productlist.domain.usecases
 import francisco.simon.productlist.domain.entity.Product
 import francisco.simon.productlist.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SearchProductsUseCase(
+class SearchProductsUseCase @Inject constructor(
     private val repository: ProductRepository
 ) {
     suspend fun invoke(query: String): Flow<List<Product>> {

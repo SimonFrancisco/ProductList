@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import francisco.simon.productlist.data.local.model.ProductDbModel
+import francisco.simon.productlist.data.typeConverters.TagsTypeConverter
 
+@TypeConverters(TagsTypeConverter::class)
 @Database(entities = [ProductDbModel::class], version = 1, exportSchema = false)
 abstract class ProductListDatabase : RoomDatabase() {
 

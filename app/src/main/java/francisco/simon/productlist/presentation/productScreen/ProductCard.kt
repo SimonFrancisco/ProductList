@@ -1,4 +1,4 @@
-package francisco.simon.productlist.presentation
+package francisco.simon.productlist.presentation.productScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +33,6 @@ import francisco.simon.productlist.domain.entity.Product
 import francisco.simon.productlist.ui.theme.DarkRed
 import francisco.simon.productlist.ui.theme.ProductListTheme
 import francisco.simon.productlist.ui.theme.Purple40
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 @Composable

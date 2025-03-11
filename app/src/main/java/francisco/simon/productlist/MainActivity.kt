@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import francisco.simon.productlist.presentation.ProductCard
-import francisco.simon.productlist.presentation.fakeProduct
+import francisco.simon.productlist.presentation.productScreen.ProductCard
+import francisco.simon.productlist.presentation.productScreen.fakeProduct
 import francisco.simon.productlist.ui.theme.ProductListTheme
 
 class MainActivity : ComponentActivity() {
