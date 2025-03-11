@@ -8,7 +8,7 @@ data class ProductDbModel(
     @PrimaryKey
     val id: Int,
     val name: String,
-    val time: String,
+    val time: Long,
     val tags: List<String>,
     val amount: Int
 )

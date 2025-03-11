@@ -208,13 +208,9 @@ private const val fakeTime = 1633132800000L
 internal val fakeProduct = Product(
     id = 1,
     name = "iPhone 13",
-    time = fakeTime.mapTimeStampToDate(),
+    time = "11.03.2025",
     tags = listOf("Simon", "Chisenga", "Ernest", "David", "Osman"),
     amount = 15
 )
 
-private fun Long.mapTimeStampToDate(): String {
-    val date = Date(this)
-    return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(date
-    )
-}
+
