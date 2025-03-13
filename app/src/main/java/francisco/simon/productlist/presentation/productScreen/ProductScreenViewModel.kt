@@ -1,5 +1,6 @@
 package francisco.simon.productlist.presentation.productScreen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import francisco.simon.productlist.domain.entity.Product
@@ -7,6 +8,7 @@ import francisco.simon.productlist.domain.usecases.DeleteProductUseCase
 import francisco.simon.productlist.domain.usecases.EditProductUseCase
 import francisco.simon.productlist.domain.usecases.GetProductsUseCase
 import francisco.simon.productlist.domain.usecases.SearchProductsUseCase
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +29,10 @@ class ProductScreenViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
+    private val exceptionHandler = CoroutineExceptionHandler{_,_->
+        Log.d("ProductScreenViewModel", "Exception caught by Exception Handler")
+    }
+
     private val foundProducts: MutableStateFlow<ProductListScreenState.Products> =
         MutableStateFlow(ProductListScreenState.Products(emptyList()))
 
@@ -42,11 +48,10 @@ class ProductScreenViewModel @Inject constructor(
         } else {
             ProductListScreenState.Products(dbList) as ProductListScreenState
         }
-    }.onStart{
+    }.onStart {
         delay(LOADING_TIME)
         emit(ProductListScreenState.Loading)
-    }
-        .stateIn(
+    }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
         initialValue = ProductListScreenState.Loading
@@ -54,16 +59,17 @@ class ProductScreenViewModel @Inject constructor(
 
 
     fun editProduct(product: Product) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             editProductUseCase(product)
         }
     }
 
     fun deleteProduct(product: Product) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             deleteProductUseCase(product)
         }
     }
+
     fun searchProductQuery(query: String) {
         val queryRoom = "%${query}%"
         isSearching.value = query.isNotEmpty()
@@ -78,7 +84,8 @@ class ProductScreenViewModel @Inject constructor(
             }
         }
     }
-    companion object{
+
+    companion object {
         private const val LOADING_TIME = 1000L
     }
 
