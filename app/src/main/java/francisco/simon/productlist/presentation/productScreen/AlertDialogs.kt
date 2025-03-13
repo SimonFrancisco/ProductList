@@ -33,6 +33,8 @@ fun DeleteAlertDialog(
 
     AlertDialog(
         containerColor = Color.White,
+        textContentColor = Color.Black,
+        titleContentColor = Color.Black,
         icon = {
             Icon(
                 Icons.Filled.Warning,
@@ -78,6 +80,9 @@ fun DeleteAlertDialog(
     )
 }
 
+/**
+ * This alert dialog increases/decreases amount by 1 when corresponding button pressed
+ */
 @Composable
 fun EditAlertDialog(
     amount: MutableIntState,
@@ -87,6 +92,8 @@ fun EditAlertDialog(
 ) {
     AlertDialog(
         containerColor = Color.White,
+        textContentColor = Color.Black,
+        titleContentColor = Color.Black,
         icon = {
             Icon(
                 imageVector = Icons.Filled.Settings,

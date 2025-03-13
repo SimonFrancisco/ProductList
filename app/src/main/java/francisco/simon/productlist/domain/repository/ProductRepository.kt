@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
 
-    val products: Flow<List<Product>>
+    fun products(): Flow<List<Product>>
 
     suspend fun deleteProduct(product: Product)
 

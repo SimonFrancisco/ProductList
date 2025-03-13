@@ -13,11 +13,12 @@ class ProductRepositoryImpl @Inject constructor(
     private val productListDao: ProductListDao,
 ) : ProductRepository {
 
-    override val products: Flow<List<Product>>
-        get() = productListDao.getProductList()
+    override fun products(): Flow<List<Product>> {
+        return productListDao.getProductList()
             .map {
                 it.toEntities()
             }
+    }
 
     override suspend fun deleteProduct(product: Product) {
         productListDao.deleteProduct(product.toDbModel())

@@ -13,7 +13,7 @@ interface ProductListDao {
     @Query("SELECT * FROM item ORDER BY id ASC")
     fun getProductList(): Flow<List<ProductDbModel>>
 
-    @Query("SELECT * FROM item WHERE name LIKE:query ORDER BY name ASC")
+    @Query("SELECT * FROM item WHERE name LIKE:query ORDER BY id ASC")
     fun searchProduct(query: String): Flow<List<ProductDbModel>>
 
     @Delete

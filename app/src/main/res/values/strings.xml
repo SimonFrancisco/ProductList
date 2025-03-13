@@ -14,4 +14,9 @@
     <string name="minus_circle_description">Decrease amount of product by 1</string>
     <string name="AcceptEdit">Принять</string>
     <string name="DenyEdit">Отмена</string>
+    <string name="search_product_icon">Search product icon</string>
+    <string name="clear_search_icon">Clear search icon</string>
+    <string name="edit_icon">Edit</string>
+    <string name="delete_icon">Delete</string>
+    <string name="look_for_product_label">Поиск товара</string>
 </resources>

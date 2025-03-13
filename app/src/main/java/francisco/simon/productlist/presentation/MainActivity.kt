@@ -1,4 +1,4 @@
-package francisco.simon.productlist
+package francisco.simon.productlist.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

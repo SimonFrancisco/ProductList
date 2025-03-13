@@ -2,6 +2,7 @@ package francisco.simon.productlist.presentation.productScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,13 +34,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import francisco.simon.productlist.R
 import francisco.simon.productlist.domain.entity.Product
 import francisco.simon.productlist.presentation.getApplicationComponent
-import francisco.simon.productlist.ui.theme.BrightGray
 import francisco.simon.productlist.ui.theme.DarkBlue
 import francisco.simon.productlist.ui.theme.LightSteelBlue
 
 
 @Composable
-fun ProductScreen(modifier: Modifier = Modifier) {
+fun ProductScreen() {
     val viewModelFactory = getApplicationComponent().getViewModelFactory()
     val viewModel: ProductScreenViewModel = viewModel(factory = viewModelFactory)
     val screenState = viewModel.screenState
@@ -53,7 +53,6 @@ fun ProductScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun ProductScreenContent(
-    modifier: Modifier = Modifier,
     screenState: State<ProductListScreenState>,
     viewModel: ProductScreenViewModel
 ) {
@@ -61,10 +60,10 @@ fun ProductScreenContent(
         ProductListScreenState.Initial -> {
 
         }
-
         ProductListScreenState.Loading -> {
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier =
+                Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
@@ -92,7 +91,8 @@ fun ProductItems(
     viewModel: ProductScreenViewModel
 ) {
     Scaffold(
-        containerColor = BrightGray,
+        containerColor = Color.Transparent,
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -115,36 +115,50 @@ fun ProductItems(
         AlertDialogDelete(openDeleteAlertDialog, currentProduct, viewModel)
         val openEditAlertDialog = remember { mutableStateOf(false) }
         AlertDialogEdit(openEditAlertDialog, currentProduct, viewModel)
-
-        LazyColumn(
+        Box(
             modifier = Modifier
-                .padding(paddingValues),
-            contentPadding = PaddingValues(
-                top = 16.dp,
-                start = 8.dp,
-                end = 8.dp,
-                bottom = 72.dp
-            ),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
-
-            items(products, key = { it.id }) { product ->
-                ProductCard(
-                    product = product,
-                    onEditClickListener = {
-                        openEditAlertDialog.value = true
-                        currentProduct.value = product
-                    },
-                    onDeleteClickListener = {
-                        openDeleteAlertDialog.value = true
-                        currentProduct.value = product
-                    }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                SearchProduct(
+                    modifier.padding(8.dp),
+                    viewModel = viewModel
                 )
-            }
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        top = 16.dp,
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 72.dp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(products, key = { it.id }) { product ->
+                        ProductCard(
+                            product = product,
+                            onEditClickListener = {
+                                openEditAlertDialog.value = true
+                                currentProduct.value = product
+                            },
+                            onDeleteClickListener = {
+                                openDeleteAlertDialog.value = true
+                                currentProduct.value = product
+                            }
+                        )
+                    }
 
+                }
+            }
         }
 
+
     }
+
+
 }
 
 @Composable
@@ -174,7 +188,7 @@ private fun AlertDialogEdit(
                     amountOfProduct.intValue = newAmount
                 },
                 amount = amountOfProduct
-                )
+            )
         }
     }
 }

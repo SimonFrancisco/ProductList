@@ -43,7 +43,8 @@ fun ProductCard(
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         ), elevation = CardDefaults.cardElevation(1.dp)
     ) {
         Column(
@@ -101,7 +102,8 @@ private fun ProductTags(product: Product) {
             Card(
                 border = BorderStroke(width = 1.dp, color = Color.Gray),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.background
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(
@@ -144,7 +146,7 @@ private fun ProductHeader(
                 },
                 tint = Purple40,
                 imageVector = Icons.Filled.Edit,
-                contentDescription = "Edit"
+                contentDescription = stringResource(R.string.edit_icon)
             )
             ClickableIcon(
                 onItemClickListener = {
@@ -152,7 +154,7 @@ private fun ProductHeader(
                 },
                 tint = DarkRed,
                 imageVector = Icons.Filled.Delete,
-                contentDescription = "Delete"
+                contentDescription = stringResource(R.string.delete_icon)
             )
         }
 
@@ -161,7 +163,6 @@ private fun ProductHeader(
 
 @Composable
 fun ClickableIcon(
-    modifier: Modifier = Modifier,
     onItemClickListener: () -> Unit,
     tint: Color,
     imageVector: ImageVector,

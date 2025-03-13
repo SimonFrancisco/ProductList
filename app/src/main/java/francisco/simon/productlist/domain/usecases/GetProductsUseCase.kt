@@ -9,6 +9,6 @@ class GetProductsUseCase @Inject constructor(
     private val repository: ProductRepository
 ) {
     operator fun invoke(): Flow<List<Product>> {
-        return repository.products
+        return repository.products()
     }
 }
