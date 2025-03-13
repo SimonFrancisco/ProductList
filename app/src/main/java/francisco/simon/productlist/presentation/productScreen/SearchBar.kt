@@ -15,6 +15,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,7 +28,7 @@ fun SearchProduct(
     modifier: Modifier = Modifier,
     viewModel: ProductScreenViewModel
 ) {
-    val query = remember {
+    val query = rememberSaveable {
         mutableStateOf("")
     }
     val trailingIconVisibility by remember {
@@ -40,7 +41,7 @@ fun SearchProduct(
         value = query.value,
         onValueChange = { newQuery ->
             query.value = newQuery
-            viewModel.searchProductQuery(newQuery)
+            viewModel.searchProductQuery(query.value)
         },
         label = {
             Text(

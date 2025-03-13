@@ -36,7 +36,7 @@ class ProductScreenViewModel @Inject constructor(
     private val foundProducts: MutableStateFlow<ProductListScreenState.Products> =
         MutableStateFlow(ProductListScreenState.Products(emptyList()))
 
-    private var isSearching = MutableStateFlow(false)
+    private val isSearching = MutableStateFlow(false)
 
     val screenState = combine(
         getProductsUseCase(),
@@ -56,6 +56,7 @@ class ProductScreenViewModel @Inject constructor(
         started = SharingStarted.Lazily,
         initialValue = ProductListScreenState.Loading
     )
+
 
 
     fun editProduct(product: Product) {
