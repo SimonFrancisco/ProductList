@@ -1,4 +1,4 @@
-package francisco.simon.productlist.presentation
+package francisco.simon.productlist.presentation.productScreen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,7 +6,6 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.toArgb
-import francisco.simon.productlist.presentation.productScreen.ProductScreen
 import francisco.simon.productlist.ui.theme.LightSteelBlue
 import francisco.simon.productlist.ui.theme.ProductListTheme
 
